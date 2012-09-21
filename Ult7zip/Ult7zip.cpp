@@ -3,4 +3,8 @@
 
 #include "stdafx.h"
 
+#include "Ult7zip.h"
 
+STDMETHODIMP U7zCreateFactory(IU7zFactory** ppobj) {
+  return S_OK;
+}
