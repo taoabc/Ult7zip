@@ -13,6 +13,15 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{2f565370-d360-4303-99c2-bbd6c41c4b8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Zip">
+      <UniqueIdentifier>{8bc27348-e357-4c20-bea1-ff2f7836859e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Unzip">
+      <UniqueIdentifier>{df9a5d52-c6cc-48ee-a767-d0d5aeb8bfd4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -27,6 +36,12 @@
     <ClInclude Include="resource.h">
       <Filter>Spec</Filter>
     </ClInclude>
+    <ClInclude Include="ComUtility.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory.h">
+      <Filter>Export</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ult7zip.cpp">
@@ -37,6 +52,9 @@
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Spec</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory.cpp">
+      <Filter>Export</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
