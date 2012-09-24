@@ -42,6 +42,12 @@
     <ClInclude Include="Factory.h">
       <Filter>Export</Filter>
     </ClInclude>
+    <ClInclude Include="Unzip.h">
+      <Filter>Unzip</Filter>
+    </ClInclude>
+    <ClInclude Include="Zip.h">
+      <Filter>Zip</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ult7zip.cpp">
@@ -55,6 +61,12 @@
     </ClCompile>
     <ClCompile Include="Factory.cpp">
       <Filter>Export</Filter>
+    </ClCompile>
+    <ClCompile Include="Unzip.cpp">
+      <Filter>Unzip</Filter>
+    </ClCompile>
+    <ClCompile Include="Zip.cpp">
+      <Filter>Zip</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

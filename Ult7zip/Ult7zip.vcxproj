@@ -88,6 +88,8 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Ult7zip.h" />
+    <ClInclude Include="Unzip.h" />
+    <ClInclude Include="Zip.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -104,6 +106,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Ult7zip.cpp" />
+    <ClCompile Include="Unzip.cpp" />
+    <ClCompile Include="Zip.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Ult7zip.def" />

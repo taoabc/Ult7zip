@@ -4,7 +4,9 @@
 #include "stdafx.h"
 
 #include "Ult7zip.h"
+#include "Factory.h"
 
 STDMETHODIMP U7zCreateFactory(IU7zFactory** ppobj) {
-  return S_OK;
+  Factory* p = new Factory;
+  return p->QueryInterface(IID_IU7zFactory, (void**)ppobj);
 }

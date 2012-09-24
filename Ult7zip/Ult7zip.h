@@ -14,7 +14,20 @@ static const GUID IID_IU7zUnzip =
 static const GUID IID_IU7zZip = 
 { 0xcb93cbb0, 0x99d1, 0x47ff, { 0x92, 0x38, 0xfc, 0x97, 0xc0, 0x20, 0x9e, 0xb4 } };
 
+interface IU7zExtractEvent {
+  STDMETHOD(SetTotal)(ULONGLONG total) PURE;
+  STDMETHOD(SetCompleted)(ULONGLONG completed) PURE;
+  STDMETHOD(SetOperationResult)(int result) PURE;
+};
+
+interface IU7zZipEvent {
+};
+
 interface IU7zUnzip : IUnknown {
+  STDMETHOD(Init)(LPCWSTR xapath) PURE;
+  STDMETHOD(Open)(LPCWSTR packpath) PURE;
+  STDMETHOD(Open)(LPCVOID data, ULONGLONG datalen) PURE;
+  STDMETHOD(Extractor)(LPCWSTR targetpath, IU7zExtractEvent* callback) PURE;
 };
 
 interface IU7zZip : IUnknown {
