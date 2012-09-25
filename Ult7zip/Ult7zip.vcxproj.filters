@@ -48,6 +48,12 @@
     <ClInclude Include="Zip.h">
       <Filter>Zip</Filter>
     </ClInclude>
+    <ClInclude Include="ExtractCallback.h">
+      <Filter>Unzip</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenCallback.h">
+      <Filter>Unzip</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ult7zip.cpp">
@@ -67,6 +73,12 @@
     </ClCompile>
     <ClCompile Include="Zip.cpp">
       <Filter>Zip</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtractCallback.cpp">
+      <Filter>Unzip</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenCallback.cpp">
+      <Filter>Unzip</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

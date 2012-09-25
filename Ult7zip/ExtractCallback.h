@@ -1,0 +1,4 @@
+#ifndef U7Z_EXTRACTCALLBACK_H_
+#define U7Z_EXTRACTCALLBACK_H_
+
+#endif

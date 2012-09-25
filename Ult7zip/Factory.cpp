@@ -40,5 +40,5 @@ STDMETHODIMP Factory::CreateUnzipObject(IU7zUnzip** ppobj) {
 }
 
 STDMETHODIMP Factory::CreateZipObject(IU7zZip** ppobj) {
-  return S_OK;
+  return E_NOTIMPL;
 }
