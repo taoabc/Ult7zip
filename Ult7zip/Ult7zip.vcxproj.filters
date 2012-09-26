@@ -54,6 +54,9 @@
     <ClInclude Include="OpenCallback.h">
       <Filter>Unzip</Filter>
     </ClInclude>
+    <ClInclude Include="FileStream.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ult7zip.cpp">
@@ -79,6 +82,9 @@
     </ClCompile>
     <ClCompile Include="OpenCallback.cpp">
       <Filter>Unzip</Filter>
+    </ClCompile>
+    <ClCompile Include="FileStream.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,7 @@
 #define U7Z_OPENCALLBACK_H_
 
 #include "ComUtility.h"
-
+#include <initguid.h>
 #include "7z/cpp/7zip/IPassword.h"
 #include "7z/cpp/7zip/archive/IArchive.h"
 
@@ -10,7 +10,7 @@
 
 class OpenCallback :
     public IArchiveOpenCallback,
-    public IArchiveExtractCallback,
+    public ICryptoGetTextPassword,
     public UnknownImp {
 
 public:
@@ -26,12 +26,13 @@ public:
   STDMETHOD(SetTotal)(const UInt64 *files, const UInt64 *bytes);
   STDMETHOD(SetCompleted)(const UInt64 *files, const UInt64 *bytes);
 
-  //IPassword
+  //ICryptoGetTextPassword
   STDMETHOD(CryptoGetTextPassword)(BSTR *password);
 
 private:
 
   std::wstring password_;
+  bool password_is_defined_;
 };
 
 #endif

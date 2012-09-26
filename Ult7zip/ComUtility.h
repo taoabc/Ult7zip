@@ -4,9 +4,18 @@
 #include <basetyps.h>
 #include <Unknwn.h>
 
+#ifndef RETURN_IF_FAILED
+#define RETURN_IF_FAILED(x) { HRESULT __result_ = (x); if (FAILED(__result_)) return __result_; }
+#endif
+
 template <typename T>
 inline bool IsNull(const T& p) {
   return (p == NULL || p == nullptr);
+}
+
+inline HRESULT StringToBstr(LPCOLESTR str, BSTR* bstr) {
+  *bstr = ::SysAllocString(str);
+  return (*bstr != NULL) ? S_OK : E_OUTOFMEMORY;
 }
 
 class UnknownImp {
