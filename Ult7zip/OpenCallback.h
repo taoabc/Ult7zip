@@ -17,6 +17,8 @@ public:
 
   OpenCallback(void);
 
+  void SetPassword(const std::wstring& password);
+
   //IUnknown
   STDMETHOD_(ULONG, AddRef)(void);
   STDMETHOD_(ULONG, Release)(void);

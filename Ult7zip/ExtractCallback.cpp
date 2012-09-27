@@ -34,10 +34,16 @@ ExtractCallback::ExtractCallback(void) :
     password_is_defined_(false) {
 }
 
-void ExtractCallback::Init(IInArchive* archive_handler, const std::wstring& directory_path) {
+void ExtractCallback::Init(IInArchive* archive_handler, const std::wstring& directory_path, IU7zExtractEvent* callback) {
   archive_handler_ = archive_handler;
   directory_path_ = directory_path;
+  callback_ = callback;
   ult::AddPathBackslash(&directory_path_);
+}
+
+void ExtractCallback::SetPassword(const std::wstring& password) {
+  password_is_defined_ = true;
+  password_ = password;
 }
 
 STDMETHODIMP_(ULONG) ExtractCallback::AddRef(void) {
@@ -66,10 +72,16 @@ STDMETHODIMP ExtractCallback::QueryInterface(REFIID riid, void** ppobj) {
 }
 
 STDMETHODIMP ExtractCallback::SetTotal(UInt64 total) {
+  if (!IsNull(callback_)) {
+    RETURN_IF_FAILED(callback_->SetTotal(total));
+  }
   return S_OK;
 }
   
 STDMETHODIMP ExtractCallback::SetCompleted(const UInt64 *completed) {
+  if (!IsNull(callback_)) {
+    RETURN_IF_FAILED(callback_->SetCompleted(*completed));
+  }
   return S_OK;
 }
 
@@ -185,7 +197,7 @@ STDMETHODIMP ExtractCallback::PrepareOperation(Int32 ask_extract_mode) {
 }
   
 STDMETHODIMP ExtractCallback::SetOperationResult(Int32 operation_result) {
-  if (!IsNull(out_filestream_spec_)) {
+  if (!IsNull(out_filestream_)) {
     if (processed_fileinfo_.mtime_defined) {
       //set modified time back, otherwise there were be current time
       out_filestream_spec_->SetMTime(&processed_fileinfo_.mtime);

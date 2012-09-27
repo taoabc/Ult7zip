@@ -5,6 +5,11 @@ OpenCallback::OpenCallback(void) :
     password_is_defined_(false) {
 }
 
+void OpenCallback::SetPassword(const std::wstring& password) {
+  password_is_defined_ = true;
+  password_ = password;
+}
+
 STDMETHODIMP_(ULONG) OpenCallback::AddRef(void) {
   return ++ref_count_;
 }

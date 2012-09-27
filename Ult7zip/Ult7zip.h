@@ -1,3 +1,8 @@
+/*
+** this dll relys one of these dll: 7z.dll, 7za.dll, 7zxa.dll
+** author
+**   taoabc@gmail.com
+*/
 #ifndef U7Z_ULT7ZIP_H_
 #define U7Z_ULT7ZIP_H_
 
@@ -17,7 +22,6 @@ static const GUID IID_IU7zZip =
 interface IU7zExtractEvent {
   STDMETHOD(SetTotal)(ULONGLONG total) PURE;
   STDMETHOD(SetCompleted)(ULONGLONG completed) PURE;
-  STDMETHOD(SetOperationResult)(int result) PURE;
 };
 
 interface IU7zZipEvent {
@@ -25,9 +29,11 @@ interface IU7zZipEvent {
 
 interface IU7zUnzip : IUnknown {
   STDMETHOD(Init)(LPCWSTR xapath) PURE;
+  STDMETHOD(SetOpenPassword)(LPCWSTR password) PURE;
+  STDMETHOD(SetExtractPassword)(LPCWSTR password) PURE;
   STDMETHOD(Open)(LPCWSTR packpath) PURE;
   STDMETHOD(Open)(LPCVOID data, ULONGLONG datalen) PURE;
-  STDMETHOD(Extractor)(LPCWSTR targetpath, IU7zExtractEvent* callback) PURE;
+  STDMETHOD(Extract)(LPCWSTR targetpath, IU7zExtractEvent* callback) PURE;
 };
 
 interface IU7zZip : IUnknown {

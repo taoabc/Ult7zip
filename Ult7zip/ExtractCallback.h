@@ -1,6 +1,7 @@
 #ifndef U7Z_EXTRACTCALLBACK_H_
 #define U7Z_EXTRACTCALLBACK_H_
 
+#include "Ult7zip.h"
 #include "ComUtility.h"
 #include "FileStream.h"
 
@@ -21,7 +22,8 @@ public:
 
   ExtractCallback(void);
 
-  void Init(IInArchive* archive_handler, const std::wstring& directory_path);
+  void Init(IInArchive* archive_handler, const std::wstring& directory_path, IU7zExtractEvent* callback);
+  void SetPassword(const std::wstring& password);
 
   //IUnknown
   STDMETHOD_(ULONG, AddRef)(void);
@@ -45,6 +47,8 @@ private:
   ComPtr<IInArchive> archive_handler_;
   ComPtr<ISequentialOutStream> out_filestream_;
   OutFileStream* out_filestream_spec_;
+
+  IU7zExtractEvent* callback_;
 
   bool extract_mode_;
   
