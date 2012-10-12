@@ -33,9 +33,6 @@
     <ClInclude Include="Ult7zip.h">
       <Filter>Export</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Spec</Filter>
-    </ClInclude>
     <ClInclude Include="ComUtility.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -56,6 +53,9 @@
     </ClInclude>
     <ClInclude Include="FileStream.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
