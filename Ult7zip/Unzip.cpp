@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Unzip.h"
 
+#include <algorithm>
+
 LPCWSTR Unzip::kDllNameArr_[] = {
   L"7z.dll",
   L"7za.dll",
@@ -127,9 +129,10 @@ STDMETHODIMP Unzip::Extract(LPCWSTR targetpath, IU7zExtractEvent* callback) {
 
 bool Unzip::TryLoadDll(const std::wstring& dir) {
   std::wstring full_dllpath;
-  for (auto dllname : kDllNameArr_) {
+  int count = sizeof (kDllNameArr_) / sizeof (kDllNameArr_[0]);
+  for (int i = 0; i < count; ++i) {
     full_dllpath = dir;
-    ult::AppendPath(&full_dllpath, dllname);
+    ult::AppendPath(&full_dllpath, kDllNameArr_[i]);
     lib_.Load(full_dllpath);
     if (lib_.IsLoaded()) {
       break;

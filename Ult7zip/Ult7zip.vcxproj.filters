@@ -1,46 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Spec">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+      <UniqueIdentifier>{426bb02a-a66d-486c-9f22-e3b4074c064b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Export">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Common">
-      <UniqueIdentifier>{2f565370-d360-4303-99c2-bbd6c41c4b8a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Zip">
-      <UniqueIdentifier>{8bc27348-e357-4c20-bea1-ff2f7836859e}</UniqueIdentifier>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{344fedf6-1af1-4558-ac86-e42ecb6cba74}</UniqueIdentifier>
     </Filter>
     <Filter Include="Unzip">
-      <UniqueIdentifier>{df9a5d52-c6cc-48ee-a767-d0d5aeb8bfd4}</UniqueIdentifier>
+      <UniqueIdentifier>{440cf1e5-fda0-48d6-96df-17b58cbda02f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Zip">
+      <UniqueIdentifier>{20935df7-4f3c-4438-8720-9d0d3fdca4eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Export">
+      <UniqueIdentifier>{2f7cbca1-d688-444e-8dbc-de8ba20ff049}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{1bb742a2-5a8b-4439-93f3-6338f76a87e6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Spec</Filter>
-    </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Spec</Filter>
     </ClInclude>
-    <ClInclude Include="Ult7zip.h">
-      <Filter>Export</Filter>
+    <ClInclude Include="stdafx.h">
+      <Filter>Spec</Filter>
     </ClInclude>
     <ClInclude Include="ComUtility.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="Factory.h">
-      <Filter>Export</Filter>
-    </ClInclude>
-    <ClInclude Include="Unzip.h">
-      <Filter>Unzip</Filter>
+    <ClInclude Include="FileStream.h">
+      <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="Zip.h">
       <Filter>Zip</Filter>
@@ -51,28 +42,31 @@
     <ClInclude Include="OpenCallback.h">
       <Filter>Unzip</Filter>
     </ClInclude>
-    <ClInclude Include="FileStream.h">
-      <Filter>Common</Filter>
+    <ClInclude Include="Unzip.h">
+      <Filter>Unzip</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resource</Filter>
     </ClInclude>
+    <ClInclude Include="Factory.h">
+      <Filter>Export</Filter>
+    </ClInclude>
+    <ClInclude Include="Ult7zip.h">
+      <Filter>Export</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Spec</Filter>
+    </ClCompile>
     <ClCompile Include="Ult7zip.cpp">
       <Filter>Export</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
       <Filter>Export</Filter>
     </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Spec</Filter>
-    </ClCompile>
-    <ClCompile Include="Factory.cpp">
-      <Filter>Export</Filter>
-    </ClCompile>
-    <ClCompile Include="Unzip.cpp">
-      <Filter>Unzip</Filter>
+    <ClCompile Include="FileStream.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="Zip.cpp">
       <Filter>Zip</Filter>
@@ -83,19 +77,18 @@
     <ClCompile Include="OpenCallback.cpp">
       <Filter>Unzip</Filter>
     </ClCompile>
-    <ClCompile Include="FileStream.cpp">
-      <Filter>Common</Filter>
+    <ClCompile Include="Unzip.cpp">
+      <Filter>Unzip</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory.cpp">
+      <Filter>Export</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Ult7zip.def">
-      <Filter>Export</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="ReadMe.txt">
+    <None Include="ReadMe.txt">
       <Filter>Spec</Filter>
-    </Text>
+    </None>
+    <None Include="Ult7zip.def" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ult7zip.rc">

@@ -22,7 +22,7 @@ bool InFileStream::Open(const std::wstring& filename) {
   if (!file_.Open(filename)) {
     return false;
   }
-  stream_type_ = StreamType::kFile;
+  stream_type_ = kStreamTypeFile;
   return true;
 }
 
@@ -33,7 +33,7 @@ bool InFileStream::Open(LPCVOID data, ULONGLONG len) {
   data_ = data;
   data_len_ = len;
   data_cursor_ = 0;
-  stream_type_ = StreamType::kMemory;
+  stream_type_ = kStreamTypeMemory;
   return true;
 }
 
@@ -67,14 +67,14 @@ STDMETHODIMP InFileStream::QueryInterface(REFIID riid, void** ppobj) {
 
   //IInStream
 STDMETHODIMP InFileStream::Read(void *data, UInt32 size, UInt32 *processed_size) {
-  if (stream_type_ == StreamType::kFile) {
+  if (stream_type_ == kStreamTypeFile) {
     DWORD real_processed_size;
     bool result = file_.ReadPart(data, size, &real_processed_size);
     if (!IsNull(processed_size)) {
       *processed_size = real_processed_size;
     }
     return ConvertBoolToHRESULT(result);
-  } else if (stream_type_ == StreamType::kMemory) {
+  } else if (stream_type_ == kStreamTypeMemory) {
     if (size > data_len_ - data_cursor_) {
       return E_FAIL;
     }
@@ -92,14 +92,14 @@ STDMETHODIMP InFileStream::Seek(Int64 offset, UInt32 seek_origin, UInt64 *new_po
   if (seek_origin > 2) {
     return STG_E_INVALIDFUNCTION;
   }
-  if (stream_type_ == StreamType::kFile) {
+  if (stream_type_ == kStreamTypeFile) {
     unsigned __int64 real_new_position;
     bool result = file_.Seek(offset, &real_new_position, seek_origin);
     if (!IsNull(new_position)) {
       *new_position = real_new_position;
     }
     return ConvertBoolToHRESULT(result);
-  } else if (stream_type_ == StreamType::kMemory) {
+  } else if (stream_type_ == kStreamTypeMemory) {
     if (seek_origin == FILE_BEGIN) {
       if ((UInt64)offset > data_len_ || offset < 0) {
         return E_FAIL;
@@ -127,10 +127,10 @@ STDMETHODIMP InFileStream::Seek(Int64 offset, UInt32 seek_origin, UInt64 *new_po
 
   //IStreamGetSize
 STDMETHODIMP InFileStream::GetSize(UInt64 *size) {
-  if (stream_type_ == StreamType::kFile) {
+  if (stream_type_ == kStreamTypeFile) {
     *size = file_.GetSize();
     return S_OK;
-  } else if (stream_type_ == StreamType::kMemory) {
+  } else if (stream_type_ == kStreamTypeMemory) {
     *size = data_len_;
     return S_OK;
   }

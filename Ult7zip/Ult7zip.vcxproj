@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{733A0D72-F766-4DA0-866B-A196D28CB8E9}</ProjectGuid>
+    <ProjectGuid>{EE1205F8-882D-4F0F-961C-98D18A3749D9}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Ult7zip</RootNamespace>
   </PropertyGroup>
@@ -19,13 +19,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -51,7 +49,6 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;ULT7ZIP_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>../depend/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -68,8 +65,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;ULT7ZIP_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalIncludeDirectories>../depend/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -81,7 +77,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
+    <None Include="ReadMe.txt" />
+    <None Include="Ult7zip.def" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ComUtility.h" />
@@ -116,9 +113,6 @@
     <ClCompile Include="Ult7zip.cpp" />
     <ClCompile Include="Unzip.cpp" />
     <ClCompile Include="Zip.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Ult7zip.def" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ult7zip.rc" />

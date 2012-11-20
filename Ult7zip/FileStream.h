@@ -36,9 +36,9 @@ public:
 
 private:
 
-  enum class StreamType {
-    kFile,
-    kMemory,
+  enum {
+    kStreamTypeFile,
+    kStreamTypeMemory,
   } stream_type_;
 
   ult::File file_;
