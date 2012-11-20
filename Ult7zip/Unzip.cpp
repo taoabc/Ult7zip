@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "Unzip.h"
 
-#include <algorithm>
-
 LPCWSTR Unzip::kDllNameArr_[] = {
   L"7z.dll",
   L"7za.dll",

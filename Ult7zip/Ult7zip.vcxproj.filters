@@ -88,7 +88,9 @@
     <None Include="ReadMe.txt">
       <Filter>Spec</Filter>
     </None>
-    <None Include="Ult7zip.def" />
+    <None Include="Ult7zip.def">
+      <Filter>Export</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ult7zip.rc">
