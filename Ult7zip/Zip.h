@@ -17,4 +17,3 @@ public:
   STDMETHOD(QueryInterface)(REFIID iid, void** ppobj);
 
 };
-
