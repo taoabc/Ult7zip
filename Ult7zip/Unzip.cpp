@@ -44,13 +44,11 @@ STDMETHODIMP Unzip::Init(LPCWSTR xapath) {
   lib_.Free();
   //use default strategy
   if (IsNull(xapath) || wcslen(xapath) == 0) {
-    std::wstring process_dir;
-    ult::GetSelfModuleDirectory(&process_dir);
+    std::wstring process_dir(ult::GetSelfModuleDirectory());
     
     bool load_result = TryLoadDll(process_dir);
     if (!load_result) {
-      std::wstring self_dlldir;
-      ult::GetNamedModuleDirectory(kSelfDllName_, &self_dlldir);
+      std::wstring self_dlldir(ult::GetNamedModuleDirectory(kSelfDllName_));
       load_result = TryLoadDll(self_dlldir);
     }
     if (!load_result) {

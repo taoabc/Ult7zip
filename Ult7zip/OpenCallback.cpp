@@ -27,6 +27,8 @@ STDMETHODIMP OpenCallback::QueryInterface(REFIID riid, void** ppobj) {
     *ppobj = static_cast<IUnknown*>(static_cast<IArchiveOpenCallback*>(this));
   } else if (riid == IID_ICryptoGetTextPassword) {
     *ppobj = static_cast<ICryptoGetTextPassword*>(this);
+  } else if (riid == IID_IArchiveOpenVolumeCallback) {
+    *ppobj = static_cast<IArchiveOpenVolumeCallback*>(this);
   } else {
     *ppobj = NULL;
     return E_NOINTERFACE;
@@ -48,4 +50,16 @@ STDMETHODIMP OpenCallback::CryptoGetTextPassword(BSTR *password) {
     return E_ABORT;
   }
   return StringToBstr(password_.c_str(), password);
+}
+
+STDMETHODIMP OpenCallback::GetProperty( PROPID propID, PROPVARIANT *value ) {
+  return S_OK;
+}
+
+STDMETHODIMP OpenCallback::GetStream( const wchar_t *name, IInStream **inStream ) {
+  return S_OK;
+}
+
+STDMETHODIMP OpenCallback::SetSubArchiveName( const wchar_t *name ) {
+  return S_OK;
 }

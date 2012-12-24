@@ -10,7 +10,9 @@
 
 class OpenCallback :
     public IArchiveOpenCallback,
+    public IArchiveOpenVolumeCallback,
     public ICryptoGetTextPassword,
+    public IArchiveOpenSetSubArchiveName,
     public UnknownImp {
 
 public:
@@ -28,8 +30,15 @@ public:
   STDMETHOD(SetTotal)(const UInt64 *files, const UInt64 *bytes);
   STDMETHOD(SetCompleted)(const UInt64 *files, const UInt64 *bytes);
 
+  //IArchiveOpenVolumeCallback
+  STDMETHOD(GetProperty)(PROPID propID, PROPVARIANT *value);
+  STDMETHOD(GetStream)(const wchar_t *name, IInStream **inStream);
+
   //ICryptoGetTextPassword
   STDMETHOD(CryptoGetTextPassword)(BSTR *password);
+
+  //IArchiveOpenSetSubArchiveName
+  STDMETHOD(SetSubArchiveName)(const wchar_t *name);
 
 private:
 
