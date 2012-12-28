@@ -20,6 +20,7 @@ public:
   ~InFileStream(void);
 
   bool Open(const std::wstring& filename);
+  bool Open(const std::wstring& filename, ULONGLONG pack_pos, ULONGLONG pack_size);
   bool Open(LPCVOID data, ULONGLONG len);
 
   //IUnknown
@@ -39,13 +40,14 @@ private:
   enum {
     kStreamTypeFile,
     kStreamTypeMemory,
+    kStreamTypeInsideFile,
   } stream_type_;
 
   ult::File file_;
   LPCVOID data_;
   ULONGLONG data_cursor_;
   ULONGLONG data_len_;
-
+  ULONGLONG data_pos_;
 };
 
 class OutFileStream :

@@ -32,7 +32,8 @@ public:
   STDMETHOD(SetOpenPassword)(LPCWSTR password);
   STDMETHOD(SetExtractPassword)(LPCWSTR password);
   STDMETHOD(Open)(LPCWSTR packpath);
-  STDMETHOD(Open)(LPCVOID data, ULONGLONG datalen);
+  STDMETHOD(OpenInsideFile)(LPCWSTR file, ULONGLONG pack_pos, ULONGLONG pack_size);
+  STDMETHOD(OpenMem)(LPCVOID data, ULONGLONG datalen);
   STDMETHOD(Extract)(LPCWSTR targetpath, IU7zExtractEvent* callback);
 
 private:

@@ -102,7 +102,7 @@ STDMETHODIMP Unzip::Open(LPCWSTR packpath) {
   return S_OK;
 }
 
-STDMETHODIMP Unzip::Open(LPCVOID data, ULONGLONG datalen) {
+STDMETHODIMP Unzip::OpenMem(LPCVOID data, ULONGLONG datalen) {
   if (!in_stream_spec_->Open(data, datalen)) {
     return E_FAIL;
   }
@@ -111,6 +111,17 @@ STDMETHODIMP Unzip::Open(LPCVOID data, ULONGLONG datalen) {
   }
   return S_OK;
 }
+
+STDMETHODIMP Unzip::OpenInsideFile( LPCWSTR file, ULONGLONG pack_pos, ULONGLONG pack_size ) {
+  if (!in_stream_spec_->Open(file, pack_pos, pack_size)) {
+    return E_FAIL;
+  }
+  if (FAILED(archive_->Open(in_stream_, NULL, open_callback_))) {
+    return E_FAIL;
+  }
+  return S_OK;
+}
+
 
 STDMETHODIMP Unzip::Extract(LPCWSTR targetpath, IU7zExtractEvent* callback) {
   if (IsNull(targetpath) || wcslen(targetpath) == 0) {

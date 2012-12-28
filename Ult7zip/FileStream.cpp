@@ -32,8 +32,19 @@ bool InFileStream::Open(LPCVOID data, ULONGLONG len) {
   }
   data_ = data;
   data_len_ = len;
-  data_cursor_ = 0;
   stream_type_ = kStreamTypeMemory;
+  return true;
+}
+
+bool InFileStream::Open(const std::wstring& filename, ULONGLONG pack_pos, ULONGLONG pack_size) {
+  if (!file_.Open(filename)) {
+    return false;
+  }
+  ULONGLONG new_position;
+  file_.Seek(pack_pos, &new_position);
+  data_pos_ = pack_pos;
+  data_len_ = pack_size;
+  stream_type_ = kStreamTypeInsideFile;
   return true;
 }
 
@@ -84,6 +95,13 @@ STDMETHODIMP InFileStream::Read(void *data, UInt32 size, UInt32 *processed_size)
       *processed_size = size;
     }
     return S_OK;
+  } else if (stream_type_ == kStreamTypeInsideFile) {
+    DWORD real_processed_size;
+    bool result = file_.ReadPart(data, size, &real_processed_size);
+    if (!IsNull(processed_size)) {
+      *processed_size = real_processed_size;
+    }
+    return ConvertBoolToHRESULT(result);
   }
   return E_FAIL;
 }
@@ -106,10 +124,7 @@ STDMETHODIMP InFileStream::Seek(Int64 offset, UInt32 seek_origin, UInt64 *new_po
       }
       data_cursor_ = offset;
     } else if (seek_origin == FILE_END) {
-      if ((UInt64)-offset > data_len_ || offset > 0) {
-        return E_FAIL;
-      }
-      data_cursor_ = -offset;
+      data_cursor_ = data_len_ + offset;
     } else if (seek_origin == FILE_CURRENT) {
       UInt64 pos = data_cursor_ + offset;
       if (pos > data_len_ || pos < 0) {
@@ -117,10 +132,27 @@ STDMETHODIMP InFileStream::Seek(Int64 offset, UInt32 seek_origin, UInt64 *new_po
       }
       data_cursor_ = pos;
     }
-    if (new_position != NULL) {
+    if (!IsNull(new_position)) {
       *new_position = data_cursor_;
     }
     return S_OK;
+  } else if (stream_type_ == kStreamTypeInsideFile) {
+    unsigned __int64 real_new_position;
+    Int64 real_offset;
+    bool result;
+    if (seek_origin == FILE_BEGIN) {
+      real_offset = data_pos_ + offset;
+    } else if (seek_origin == FILE_END) {
+      real_offset = offset - (file_.GetSize() - (data_pos_ + data_len_));
+    } else if (seek_origin == FILE_CURRENT) {
+      real_offset = offset;
+    }
+    result = file_.Seek(real_offset, &real_new_position, seek_origin);
+    real_new_position -= data_pos_;
+    if (!IsNull(new_position)) {
+      *new_position = real_new_position;
+    }
+    return ConvertBoolToHRESULT(result);
   }
   return E_FAIL;
 }
@@ -131,6 +163,9 @@ STDMETHODIMP InFileStream::GetSize(UInt64 *size) {
     *size = file_.GetSize();
     return S_OK;
   } else if (stream_type_ == kStreamTypeMemory) {
+    *size = data_len_;
+    return S_OK;
+  } else if (stream_type_ == kStreamTypeInsideFile) {
     *size = data_len_;
     return S_OK;
   }

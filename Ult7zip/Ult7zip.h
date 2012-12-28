@@ -32,7 +32,8 @@ interface IU7zUnzip : IUnknown {
   STDMETHOD(SetOpenPassword)(LPCWSTR password) PURE;
   STDMETHOD(SetExtractPassword)(LPCWSTR password) PURE;
   STDMETHOD(Open)(LPCWSTR packpath) PURE;
-  STDMETHOD(Open)(LPCVOID data, ULONGLONG datalen) PURE;
+  STDMETHOD(OpenInsideFile)(LPCWSTR file, ULONGLONG pack_pos, ULONGLONG pack_size) PURE;
+  STDMETHOD(OpenMem)(LPCVOID data, ULONGLONG datalen) PURE;
   STDMETHOD(Extract)(LPCWSTR targetpath, IU7zExtractEvent* callback) PURE;
 };
 
