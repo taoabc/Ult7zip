@@ -32,6 +32,7 @@ bool InFileStream::Open(LPCVOID data, ULONGLONG len) {
   }
   data_ = data;
   data_len_ = len;
+  data_cursor_ = 0;
   stream_type_ = kStreamTypeMemory;
   return true;
 }
