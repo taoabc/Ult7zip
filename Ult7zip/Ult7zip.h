@@ -22,6 +22,7 @@ static const GUID IID_IU7zZip =
 interface IU7zExtractEvent {
   STDMETHOD(SetTotal)(ULONGLONG total) PURE;
   STDMETHOD(SetCompleted)(ULONGLONG completed) PURE;
+  STDMETHOD(SetPath)(LPCWSTR path) PURE;
 };
 
 interface IU7zZipEvent {

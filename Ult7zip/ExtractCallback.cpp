@@ -106,6 +106,9 @@ STDMETHODIMP ExtractCallback::GetStream(UInt32 index, ISequentialOutStream **out
       fullpath = prop.bstrVal;
     }
     file_path_ = fullpath;
+    if (!IsNull(callback_)) {
+      RETURN_IF_FAILED(callback_->SetPath(fullpath.c_str()));
+    }
   }
 
   if (ask_extract_mode != NArchive::NExtract::NAskMode::kExtract) {
