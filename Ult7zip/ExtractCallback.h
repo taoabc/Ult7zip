@@ -48,7 +48,7 @@ private:
   ComPtr<ISequentialOutStream> out_filestream_;
   OutFileStream* out_filestream_spec_;
 
-  IU7zExtractEvent* callback_;
+  ComPtr<IU7zExtractEvent> callback_;
 
   bool extract_mode_;
   
