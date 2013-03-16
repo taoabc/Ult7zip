@@ -123,7 +123,7 @@ STDMETHODIMP Unzip::OpenInsideFile( LPCWSTR file, ULONGLONG pack_pos, ULONGLONG 
 }
 
 
-STDMETHODIMP Unzip::Extract(LPCWSTR targetpath, IU7zExtractEvent* callback) {
+STDMETHODIMP Unzip::Extract(LPCWSTR targetpath, IU7zUnzipEvent* callback) {
   if (IsNull(targetpath) || wcslen(targetpath) == 0) {
     return E_ABORT;
   }

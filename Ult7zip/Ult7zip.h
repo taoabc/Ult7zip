@@ -18,14 +18,21 @@ static const GUID IID_IU7zUnzip =
 // {CB93CBB0-99D1-47FF-9238-FC97C0209EB4}
 static const GUID IID_IU7zZip = 
 { 0xcb93cbb0, 0x99d1, 0x47ff, { 0x92, 0x38, 0xfc, 0x97, 0xc0, 0x20, 0x9e, 0xb4 } };
+// {59B49191-05F4-4EE6-A504-C97811775184}
+static const GUID IID_IU7zUnzipEvent = 
+{ 0x59b49191, 0x5f4, 0x4ee6, { 0xa5, 0x4, 0xc9, 0x78, 0x11, 0x77, 0x51, 0x84 } };
+// {693C63CB-CF7C-4B0B-8418-BE9EECE6853E}
+static const GUID IID_IU7zZipEvent = 
+{ 0x693c63cb, 0xcf7c, 0x4b0b, { 0x84, 0x18, 0xbe, 0x9e, 0xec, 0xe6, 0x85, 0x3e } };
 
-interface IU7zExtractEvent : IUnknown {
+
+interface IU7zUnzipEvent : IUnknown {
   STDMETHOD(SetTotal)(ULONGLONG total) PURE;
   STDMETHOD(SetCompleted)(ULONGLONG completed) PURE;
   STDMETHOD(SetPath)(LPCWSTR path) PURE;
 };
 
-interface IU7zZipEvent {
+interface IU7zZipEvent : IUnknown {
 };
 
 interface IU7zUnzip : IUnknown {
@@ -35,7 +42,7 @@ interface IU7zUnzip : IUnknown {
   STDMETHOD(Open)(LPCWSTR packpath) PURE;
   STDMETHOD(OpenInsideFile)(LPCWSTR file, ULONGLONG pack_pos, ULONGLONG pack_size) PURE;
   STDMETHOD(OpenMem)(LPCVOID data, ULONGLONG datalen) PURE;
-  STDMETHOD(Extract)(LPCWSTR targetpath, IU7zExtractEvent* callback) PURE;
+  STDMETHOD(Extract)(LPCWSTR targetpath, IU7zUnzipEvent* callback) PURE;
 };
 
 interface IU7zZip : IUnknown {

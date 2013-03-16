@@ -34,7 +34,7 @@ public:
   STDMETHOD(Open)(LPCWSTR packpath);
   STDMETHOD(OpenInsideFile)(LPCWSTR file, ULONGLONG pack_pos, ULONGLONG pack_size);
   STDMETHOD(OpenMem)(LPCVOID data, ULONGLONG datalen);
-  STDMETHOD(Extract)(LPCWSTR targetpath, IU7zExtractEvent* callback);
+  STDMETHOD(Extract)(LPCWSTR targetpath, IU7zUnzipEvent* callback);
 
 private:
 

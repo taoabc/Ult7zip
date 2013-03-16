@@ -34,7 +34,7 @@ ExtractCallback::ExtractCallback(void) :
     password_is_defined_(false) {
 }
 
-void ExtractCallback::Init(IInArchive* archive_handler, const std::wstring& directory_path, IU7zExtractEvent* callback) {
+void ExtractCallback::Init(IInArchive* archive_handler, const std::wstring& directory_path, IU7zUnzipEvent* callback) {
   archive_handler_ = archive_handler;
   directory_path_ = directory_path;
   callback_ = callback;

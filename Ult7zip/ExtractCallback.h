@@ -22,7 +22,7 @@ public:
 
   ExtractCallback(void);
 
-  void Init(IInArchive* archive_handler, const std::wstring& directory_path, IU7zExtractEvent* callback);
+  void Init(IInArchive* archive_handler, const std::wstring& directory_path, IU7zUnzipEvent* callback);
   void SetPassword(const std::wstring& password);
 
   //IUnknown
@@ -48,7 +48,7 @@ private:
   ComPtr<ISequentialOutStream> out_filestream_;
   OutFileStream* out_filestream_spec_;
 
-  ComPtr<IU7zExtractEvent> callback_;
+  ComPtr<IU7zUnzipEvent> callback_;
 
   bool extract_mode_;
   
