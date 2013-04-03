@@ -83,7 +83,6 @@
   <ItemGroup>
     <ClInclude Include="ComUtility.h" />
     <ClInclude Include="ExtractCallback.h" />
-    <ClInclude Include="Factory.h" />
     <ClInclude Include="FileStream.h" />
     <ClInclude Include="OpenCallback.h" />
     <ClInclude Include="resource.h" />
@@ -103,7 +102,6 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ExtractCallback.cpp" />
-    <ClCompile Include="Factory.cpp" />
     <ClCompile Include="FileStream.cpp" />
     <ClCompile Include="OpenCallback.cpp" />
     <ClCompile Include="stdafx.cpp">

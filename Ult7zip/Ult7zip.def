@@ -2,4 +2,4 @@ LIBRARY Ult7zip
 
 EXPORTS
 
-U7zCreateFactory
+U7zCreateInstance

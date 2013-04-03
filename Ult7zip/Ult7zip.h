@@ -9,9 +9,8 @@
 #include <objbase.h>
 #include <InitGuid.h>
 
-// {5B31522B-FB8F-47AD-8EC8-081A2CAB46D4}
-DEFINE_GUID(IID_IU7zFactory, 
-  0x5b31522b, 0xfb8f, 0x47ad, 0x8e, 0xc8, 0x8, 0x1a, 0x2c, 0xab, 0x46, 0xd4);
+STDAPI U7zCreateInstance(REFIID riid, void** ppobj);
+
 // {9C6A2681-48AD-47CB-A841-1857A49777B2}
 DEFINE_GUID(IID_IU7zUnzip, 
   0x9c6a2681, 0x48ad, 0x47cb, 0xa8, 0x41, 0x18, 0x57, 0xa4, 0x97, 0x77, 0xb2);
@@ -31,9 +30,9 @@ DECLARE_INTERFACE_(INTERFACE, IUnknown) {
   STDMETHOD (QueryInterface)    (THIS_ REFIID riid, void** ppobj) PURE;
   STDMETHOD_(ULONG, AddRef)     (THIS) PURE;
   STDMETHOD_(ULONG, Release)    (THIS) PURE;
-  STDMETHOD (SetTotal)          (ULONGLONG total) PURE;
-  STDMETHOD (SetCompleted)      (ULONGLONG completed) PURE;
-  STDMETHOD (SetPath)           (LPCWSTR path) PURE;
+  STDMETHOD (SetTotal)          (THIS_ ULONGLONG total) PURE;
+  STDMETHOD (SetCompleted)      (THIS_ ULONGLONG completed) PURE;
+  STDMETHOD (SetPath)           (THIS_ LPCWSTR path) PURE;
 };
 
 #undef  INTERFACE
@@ -50,13 +49,13 @@ DECLARE_INTERFACE_(INTERFACE, IUnknown) {
   STDMETHOD (QueryInterface)    (THIS_ REFIID riid, void** ppobj) PURE;
   STDMETHOD_(ULONG, AddRef)     (THIS) PURE;
   STDMETHOD_(ULONG, Release)    (THIS) PURE;
-  STDMETHOD (Init)              (LPCWSTR xapath) PURE;
-  STDMETHOD (SetOpenPassword)   (LPCWSTR password) PURE;
-  STDMETHOD (SetExtractPassword)(LPCWSTR password) PURE;
-  STDMETHOD (Open)              (LPCWSTR packpath) PURE;
-  STDMETHOD (OpenInsideFile)    (LPCWSTR file, ULONGLONG pack_pos, ULONGLONG pack_size) PURE;
-  STDMETHOD (OpenMem)           (LPCVOID data, ULONGLONG datalen) PURE;
-  STDMETHOD (Extract)           (LPCWSTR targetpath, IU7zUnzipEvent* callback) PURE;
+  STDMETHOD (Init)              (THIS_ LPCWSTR xapath) PURE;
+  STDMETHOD (SetOpenPassword)   (THIS_ LPCWSTR password) PURE;
+  STDMETHOD (SetExtractPassword)(THIS_ LPCWSTR password) PURE;
+  STDMETHOD (Open)              (THIS_ LPCWSTR packpath) PURE;
+  STDMETHOD (OpenInsideFile)    (THIS_ LPCWSTR file, ULONGLONG pack_pos, ULONGLONG pack_size) PURE;
+  STDMETHOD (OpenMem)           (THIS_ LPCVOID data, ULONGLONG datalen) PURE;
+  STDMETHOD (Extract)           (THIS_ LPCWSTR targetpath, IU7zUnzipEvent* callback) PURE;
 };
 
 #undef  INTERFACE
@@ -67,16 +66,4 @@ DECLARE_INTERFACE_(INTERFACE, IUnknown) {
   STDMETHOD_(ULONG, Release)    (THIS) PURE;
 };
 
-#undef  INTERFACE
-#define INTERFACE IU7zFactory
-DECLARE_INTERFACE_(INTERFACE, IUnknown) {
-  STDMETHOD (QueryInterface)    (THIS_ REFIID riid, void** ppobj) PURE;
-  STDMETHOD_(ULONG, AddRef)     (THIS) PURE;
-  STDMETHOD_(ULONG, Release)    (THIS) PURE;
-  STDMETHOD (CreateUnzipObject) (IU7zUnzip** ppobj) PURE;
-  STDMETHOD (CreateZipObject)   (IU7zZip** ppobj) PURE;
-};
-
-STDAPI U7zCreateFactory(IU7zFactory** ppobj);
-
-#endif
+#endif //U7Z_ULT7ZIP_H_

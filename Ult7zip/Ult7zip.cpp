@@ -4,9 +4,20 @@
 #include "stdafx.h"
 
 #include "Ult7zip.h"
-#include "Factory.h"
+#include "Unzip.h"
 
-STDMETHODIMP U7zCreateFactory(IU7zFactory** ppobj) {
-  Factory* p = new Factory;
-  return p->QueryInterface(IID_IU7zFactory, (void**)ppobj);
+STDMETHODIMP U7zCreateInstance(REFIID riid, void** ppobj) {
+  IUnknown* punkn = NULL;
+  HRESULT hr;
+  if (riid == IID_IU7zUnzip) {
+    punkn = new Unzip;
+    punkn->AddRef();
+    hr = punkn->QueryInterface(IID_IU7zUnzip, ppobj);
+    punkn->Release();
+  } else if (riid == IID_IU7zZip) {
+    hr = E_NOTIMPL;
+  } else {
+    return E_NOINTERFACE;
+  }
+  return hr;
 }

@@ -48,9 +48,6 @@
     <ClInclude Include="resource.h">
       <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="Factory.h">
-      <Filter>Export</Filter>
-    </ClInclude>
     <ClInclude Include="Ult7zip.h">
       <Filter>Export</Filter>
     </ClInclude>
@@ -79,9 +76,6 @@
     </ClCompile>
     <ClCompile Include="Unzip.cpp">
       <Filter>Unzip</Filter>
-    </ClCompile>
-    <ClCompile Include="Factory.cpp">
-      <Filter>Export</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
