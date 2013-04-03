@@ -6,51 +6,75 @@
 #ifndef U7Z_ULT7ZIP_H_
 #define U7Z_ULT7ZIP_H_
 
-#include <basetyps.h>
-#include <Unknwn.h>
+#include <objbase.h>
+#include <InitGuid.h>
 
-// {7FE4C68C-C25F-46D8-B93D-0EEB811C47F1}
-static const GUID IID_IU7zFactory = 
-{ 0x7fe4c68c, 0xc25f, 0x46d8, { 0xb9, 0x3d, 0xe, 0xeb, 0x81, 0x1c, 0x47, 0xf1 } };
-// {04AC8C3C-BAC5-46C4-8216-25220D961B53}
-static const GUID IID_IU7zUnzip = 
-{ 0x4ac8c3c, 0xbac5, 0x46c4, { 0x82, 0x16, 0x25, 0x22, 0xd, 0x96, 0x1b, 0x53 } };
-// {CB93CBB0-99D1-47FF-9238-FC97C0209EB4}
-static const GUID IID_IU7zZip = 
-{ 0xcb93cbb0, 0x99d1, 0x47ff, { 0x92, 0x38, 0xfc, 0x97, 0xc0, 0x20, 0x9e, 0xb4 } };
-// {59B49191-05F4-4EE6-A504-C97811775184}
-static const GUID IID_IU7zUnzipEvent = 
-{ 0x59b49191, 0x5f4, 0x4ee6, { 0xa5, 0x4, 0xc9, 0x78, 0x11, 0x77, 0x51, 0x84 } };
-// {693C63CB-CF7C-4B0B-8418-BE9EECE6853E}
-static const GUID IID_IU7zZipEvent = 
-{ 0x693c63cb, 0xcf7c, 0x4b0b, { 0x84, 0x18, 0xbe, 0x9e, 0xec, 0xe6, 0x85, 0x3e } };
+// {5B31522B-FB8F-47AD-8EC8-081A2CAB46D4}
+DEFINE_GUID(IID_IU7zFactory, 
+  0x5b31522b, 0xfb8f, 0x47ad, 0x8e, 0xc8, 0x8, 0x1a, 0x2c, 0xab, 0x46, 0xd4);
+// {9C6A2681-48AD-47CB-A841-1857A49777B2}
+DEFINE_GUID(IID_IU7zUnzip, 
+  0x9c6a2681, 0x48ad, 0x47cb, 0xa8, 0x41, 0x18, 0x57, 0xa4, 0x97, 0x77, 0xb2);
+// {1F774AC9-5DE4-4B02-898A-52DEC3A3DFA2}
+DEFINE_GUID(IID_IU7zZip, 
+  0x1f774ac9, 0x5de4, 0x4b02, 0x89, 0x8a, 0x52, 0xde, 0xc3, 0xa3, 0xdf, 0xa2);
+// {14A15AB5-0BB9-4731-BB06-E4498D10C504}
+DEFINE_GUID(IID_IU7zUnzipEvent, 
+  0x14a15ab5, 0xbb9, 0x4731, 0xbb, 0x6, 0xe4, 0x49, 0x8d, 0x10, 0xc5, 0x4);
+// {BA09E117-C7A3-45D3-AC93-D30FEE91A40C}
+DEFINE_GUID(IID_IU7zZipEvent, 
+  0xba09e117, 0xc7a3, 0x45d3, 0xac, 0x93, 0xd3, 0xf, 0xee, 0x91, 0xa4, 0xc);
 
-
-interface IU7zUnzipEvent : IUnknown {
-  STDMETHOD(SetTotal)(ULONGLONG total) PURE;
-  STDMETHOD(SetCompleted)(ULONGLONG completed) PURE;
-  STDMETHOD(SetPath)(LPCWSTR path) PURE;
+#undef  INTERFACE
+#define INTERFACE IU7zUnzipEvent
+DECLARE_INTERFACE_(INTERFACE, IUnknown) {
+  STDMETHOD (QueryInterface)    (THIS_ REFIID riid, void** ppobj) PURE;
+  STDMETHOD_(ULONG, AddRef)		  (THIS) PURE;
+  STDMETHOD_(ULONG, Release)		(THIS) PURE;
+  STDMETHOD (SetTotal)          (ULONGLONG total) PURE;
+  STDMETHOD (SetCompleted)      (ULONGLONG completed) PURE;
+  STDMETHOD (SetPath)           (LPCWSTR path) PURE;
 };
 
-interface IU7zZipEvent : IUnknown {
+#undef  INTERFACE
+#define INTERFACE IU7zZipEvent
+DECLARE_INTERFACE_(INTERFACE, IUnknown) {
+  STDMETHOD (QueryInterface)    (THIS_ REFIID riid, void** ppobj) PURE;
+  STDMETHOD_(ULONG, AddRef)		  (THIS) PURE;
+  STDMETHOD_(ULONG, Release)		(THIS) PURE;
 };
 
-interface IU7zUnzip : IUnknown {
-  STDMETHOD(Init)(LPCWSTR xapath) PURE;
-  STDMETHOD(SetOpenPassword)(LPCWSTR password) PURE;
-  STDMETHOD(SetExtractPassword)(LPCWSTR password) PURE;
-  STDMETHOD(Open)(LPCWSTR packpath) PURE;
-  STDMETHOD(OpenInsideFile)(LPCWSTR file, ULONGLONG pack_pos, ULONGLONG pack_size) PURE;
-  STDMETHOD(OpenMem)(LPCVOID data, ULONGLONG datalen) PURE;
-  STDMETHOD(Extract)(LPCWSTR targetpath, IU7zUnzipEvent* callback) PURE;
+#undef  INTERFACE
+#define INTERFACE IU7zUnzip
+DECLARE_INTERFACE_(INTERFACE, IUnknown) {
+  STDMETHOD (QueryInterface)    (THIS_ REFIID riid, void** ppobj) PURE;
+  STDMETHOD_(ULONG, AddRef)		  (THIS) PURE;
+  STDMETHOD_(ULONG, Release)		(THIS) PURE;
+  STDMETHOD (Init)              (LPCWSTR xapath) PURE;
+  STDMETHOD (SetOpenPassword)   (LPCWSTR password) PURE;
+  STDMETHOD (SetExtractPassword)(LPCWSTR password) PURE;
+  STDMETHOD (Open)              (LPCWSTR packpath) PURE;
+  STDMETHOD (OpenInsideFile)    (LPCWSTR file, ULONGLONG pack_pos, ULONGLONG pack_size) PURE;
+  STDMETHOD (OpenMem)           (LPCVOID data, ULONGLONG datalen) PURE;
+  STDMETHOD (Extract)           (LPCWSTR targetpath, IU7zUnzipEvent* callback) PURE;
 };
 
-interface IU7zZip : IUnknown {
+#undef  INTERFACE
+#define INTERFACE IU7zZip
+DECLARE_INTERFACE_(INTERFACE, IUnknown) {
+  STDMETHOD (QueryInterface)    (THIS_ REFIID riid, void** ppobj) PURE;
+  STDMETHOD_(ULONG, AddRef)		  (THIS) PURE;
+  STDMETHOD_(ULONG, Release)		(THIS) PURE;
 };
 
-interface IU7zFactory : IUnknown {
-  STDMETHOD(CreateUnzipObject)(IU7zUnzip** ppobj) PURE;
-  STDMETHOD(CreateZipObject)(IU7zZip** ppobj) PURE;
+#undef  INTERFACE
+#define INTERFACE IU7zFactory
+DECLARE_INTERFACE_(INTERFACE, IUnknown) {
+  STDMETHOD (QueryInterface)    (THIS_ REFIID riid, void** ppobj) PURE;
+  STDMETHOD_(ULONG, AddRef)		  (THIS) PURE;
+  STDMETHOD_(ULONG, Release)		(THIS) PURE;
+  STDMETHOD (CreateUnzipObject) (IU7zUnzip** ppobj) PURE;
+  STDMETHOD (CreateZipObject)   (IU7zZip** ppobj) PURE;
 };
 
 STDAPI U7zCreateFactory(IU7zFactory** ppobj);
