@@ -29,8 +29,8 @@ DEFINE_GUID(IID_IU7zZipEvent,
 #define INTERFACE IU7zUnzipEvent
 DECLARE_INTERFACE_(INTERFACE, IUnknown) {
   STDMETHOD (QueryInterface)    (THIS_ REFIID riid, void** ppobj) PURE;
-  STDMETHOD_(ULONG, AddRef)		  (THIS) PURE;
-  STDMETHOD_(ULONG, Release)		(THIS) PURE;
+  STDMETHOD_(ULONG, AddRef)     (THIS) PURE;
+  STDMETHOD_(ULONG, Release)    (THIS) PURE;
   STDMETHOD (SetTotal)          (ULONGLONG total) PURE;
   STDMETHOD (SetCompleted)      (ULONGLONG completed) PURE;
   STDMETHOD (SetPath)           (LPCWSTR path) PURE;
@@ -40,16 +40,16 @@ DECLARE_INTERFACE_(INTERFACE, IUnknown) {
 #define INTERFACE IU7zZipEvent
 DECLARE_INTERFACE_(INTERFACE, IUnknown) {
   STDMETHOD (QueryInterface)    (THIS_ REFIID riid, void** ppobj) PURE;
-  STDMETHOD_(ULONG, AddRef)		  (THIS) PURE;
-  STDMETHOD_(ULONG, Release)		(THIS) PURE;
+  STDMETHOD_(ULONG, AddRef)     (THIS) PURE;
+  STDMETHOD_(ULONG, Release)    (THIS) PURE;
 };
 
 #undef  INTERFACE
 #define INTERFACE IU7zUnzip
 DECLARE_INTERFACE_(INTERFACE, IUnknown) {
   STDMETHOD (QueryInterface)    (THIS_ REFIID riid, void** ppobj) PURE;
-  STDMETHOD_(ULONG, AddRef)		  (THIS) PURE;
-  STDMETHOD_(ULONG, Release)		(THIS) PURE;
+  STDMETHOD_(ULONG, AddRef)     (THIS) PURE;
+  STDMETHOD_(ULONG, Release)    (THIS) PURE;
   STDMETHOD (Init)              (LPCWSTR xapath) PURE;
   STDMETHOD (SetOpenPassword)   (LPCWSTR password) PURE;
   STDMETHOD (SetExtractPassword)(LPCWSTR password) PURE;
@@ -63,16 +63,16 @@ DECLARE_INTERFACE_(INTERFACE, IUnknown) {
 #define INTERFACE IU7zZip
 DECLARE_INTERFACE_(INTERFACE, IUnknown) {
   STDMETHOD (QueryInterface)    (THIS_ REFIID riid, void** ppobj) PURE;
-  STDMETHOD_(ULONG, AddRef)		  (THIS) PURE;
-  STDMETHOD_(ULONG, Release)		(THIS) PURE;
+  STDMETHOD_(ULONG, AddRef)     (THIS) PURE;
+  STDMETHOD_(ULONG, Release)    (THIS) PURE;
 };
 
 #undef  INTERFACE
 #define INTERFACE IU7zFactory
 DECLARE_INTERFACE_(INTERFACE, IUnknown) {
   STDMETHOD (QueryInterface)    (THIS_ REFIID riid, void** ppobj) PURE;
-  STDMETHOD_(ULONG, AddRef)		  (THIS) PURE;
-  STDMETHOD_(ULONG, Release)		(THIS) PURE;
+  STDMETHOD_(ULONG, AddRef)     (THIS) PURE;
+  STDMETHOD_(ULONG, Release)    (THIS) PURE;
   STDMETHOD (CreateUnzipObject) (IU7zUnzip** ppobj) PURE;
   STDMETHOD (CreateZipObject)   (IU7zZip** ppobj) PURE;
 };
