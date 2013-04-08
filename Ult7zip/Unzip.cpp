@@ -124,13 +124,14 @@ STDMETHODIMP Unzip::OpenInsideFile( LPCWSTR file, ULONGLONG pack_pos, ULONGLONG 
 
 
 STDMETHODIMP Unzip::Extract(LPCWSTR targetpath, IU7zUnzipEvent* callback) {
+  ComPtr<IU7zUnzipEvent> cb = callback;
   if (IsNull(targetpath) || wcslen(targetpath) == 0) {
     return E_ABORT;
   }
   if (!ult::MakeSureFolderExist(targetpath)) {
     return E_FAIL;
   }
-  extract_callback_spec_->Init(archive_, targetpath, callback);
+  extract_callback_spec_->Init(archive_, targetpath, cb);
   return archive_->Extract(NULL, (UInt32)(Int32)(-1), false, extract_callback_);
 }
 
