@@ -139,8 +139,7 @@ bool Unzip::TryLoadDll(const std::wstring& dir) {
   std::wstring full_dllpath;
   int count = sizeof (kDllNameArr_) / sizeof (kDllNameArr_[0]);
   for (int i = 0; i < count; ++i) {
-    full_dllpath = dir;
-    ult::AppendPath(&full_dllpath, kDllNameArr_[i]);
+    full_dllpath = ult::AppendPath(dir, kDllNameArr_[i]);
     lib_.Load(full_dllpath);
     if (lib_.IsLoaded()) {
       break;

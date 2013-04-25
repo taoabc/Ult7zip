@@ -6,9 +6,9 @@
 #ifndef ULT_FILE_FILEDIR_H_
 #define ULT_FILE_FILEDIR_H_
 
+#include <Windows.h>
 #include <Shellapi.h>
 #include <shlobj.h>
-#include <Windows.h>
 #include <string>
 #include <vector>
 
@@ -33,21 +33,21 @@ struct ToPurenameAndExtension {
 };
 
 struct ToUpperpathAndFilename {
-void operator()(
+  void operator()(
     const std::wstring& fullpath,
     std::wstring* pathprefix,
     std::wstring* filename,
     const std::wstring& pathseparator) {
-  int separator_len = pathseparator.length();
-  int pos = fullpath.rfind(pathseparator);
-  if (pos == std::wstring::npos) {
-    pathprefix->clear();
-    filename->assign(fullpath);
-  } else {
-    pathprefix->assign(fullpath.substr(0, pos+separator_len));
-    filename->assign(fullpath.substr(pos+separator_len));
+      int separator_len = pathseparator.length();
+      int pos = fullpath.rfind(pathseparator);
+      if (pos == std::wstring::npos) {
+        pathprefix->clear();
+        filename->assign(fullpath);
+      } else {
+        pathprefix->assign(fullpath.substr(0, pos+separator_len));
+        filename->assign(fullpath.substr(pos+separator_len));
+      }
   }
-}
 };
 
 struct AddPathBackslash {
@@ -144,7 +144,7 @@ struct MakeSureFolderExist {
     bool ret = false;
     std::wstring normalize_path(folder_path);
     AddPathBackslash()(&normalize_path);
-    while ((index = normalize_path.find(L'\\', index)) != std::string::npos) {
+    while ((index = normalize_path.find(L'\\', index)) != std::wstring::npos) {
       index++;
       std::wstring path = normalize_path.substr(0, index);
       if (0 == CreateDirectory(path.c_str(), NULL)) {
@@ -246,14 +246,16 @@ inline void RemovePathBackslash(std::wstring* dirpath) {
   detail::RemovePathBackslash()(dirpath);
 }
 
-inline void AppendPath(std::wstring* toappend,
-                       const std::wstring& post) {
-  AddPathBackslash(toappend);
-  if (post.at(0) == L'\\') {
-    toappend->append(post.c_str()+1);
+inline std::wstring AppendPath(const std::wstring& path,
+                       const std::wstring& more) {
+  std::wstring t(path);
+  AddPathBackslash(&t);
+  if (more.at(0) == L'\\') {
+    t += (more.c_str()+1);
   } else {
-    toappend->append(post);
+    t += more;
   }
+  return t;
 }
 
 inline ULONGLONG GetDiskFreeSpace(const std::wstring& directory) {

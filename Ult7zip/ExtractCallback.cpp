@@ -105,6 +105,9 @@ STDMETHODIMP ExtractCallback::GetStream(UInt32 index, ISequentialOutStream **out
       }
       fullpath = prop.bstrVal;
     }
+    if (fullpath == L"launcher\\XAR\\MainResTM\\res\\default.zip\\bitmap\\webloading\\0.0010001.png") {
+      std::wstring a = fullpath;
+    }
     file_path_ = fullpath;
     if (!IsNull(callback_)) {
       RETURN_IF_FAILED(callback_->SetPath(fullpath.c_str()));
@@ -174,13 +177,13 @@ STDMETHODIMP ExtractCallback::GetStream(UInt32 index, ISequentialOutStream **out
   } else {
     if (ult::IsPathFileExist(full_processed_path)) {
       if (!ult::DeleteFileAlways(full_processed_path)) {
-        return E_ABORT;
+        return HRESULT_FROM_WIN32(::GetLastError());
       }
     }
     out_filestream_spec_ = new OutFileStream;
     ComPtr<ISequentialOutStream> out_stream_loc(out_filestream_spec_);
     if (!out_filestream_spec_->Create(full_processed_path, true)) {
-      return E_ABORT;
+      return HRESULT_FROM_WIN32(::GetLastError());
     }
     out_filestream_ = out_stream_loc;
     *out_stream = out_stream_loc.Detach();
