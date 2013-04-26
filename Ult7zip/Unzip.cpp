@@ -128,7 +128,7 @@ STDMETHODIMP Unzip::Extract(LPCWSTR targetpath, IU7zUnzipEvent* callback) {
   if (IsNull(targetpath) || wcslen(targetpath) == 0) {
     return E_ABORT;
   }
-  if (!ult::MakeSureFolderExist(targetpath)) {
+  if (!ult::CreateDirectories(targetpath)) {
     return E_FAIL;
   }
   extract_callback_spec_->Init(archive_, targetpath, cb);

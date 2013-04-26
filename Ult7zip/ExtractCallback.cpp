@@ -164,7 +164,7 @@ STDMETHODIMP ExtractCallback::GetStream(UInt32 index, ISequentialOutStream **out
     //Create folders for file
     int pos = file_path_.rfind(L"\\");
     if (pos != std::wstring::npos) {
-      ult::MakeSureFolderExist(directory_path_ + file_path_.substr(0, pos));
+      ult::CreateDirectories(directory_path_ + file_path_.substr(0, pos));
     }
   }
 
@@ -173,7 +173,7 @@ STDMETHODIMP ExtractCallback::GetStream(UInt32 index, ISequentialOutStream **out
   std::wstring full_processed_path = directory_path_ + file_path_;
   disk_file_path_ = full_processed_path;
   if (processed_fileinfo_.isdir) {
-    ult::MakeSureFolderExist(full_processed_path);
+    ult::CreateDirectories(full_processed_path);
   } else {
     if (ult::IsPathFileExist(full_processed_path)) {
       if (!ult::DeleteFileAlways(full_processed_path)) {

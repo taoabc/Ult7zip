@@ -16,6 +16,16 @@ namespace ult {
   
 namespace detail {
 
+struct IsPathFileExist {
+  bool operator()(const std::wstring& path) {
+    if (-1 != _waccess(path.c_str(), 0)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+};
+
 struct ToPurenameAndExtension {
   void operator()(
       const std::wstring& fullname,
@@ -138,26 +148,44 @@ struct GetMaxFreeSpaceDrive {
 }
 };
 
-struct MakeSureFolderExist {
-  bool operator()(const std::wstring& folder_path) {
-    int index = 0;
-    bool ret = false;
-    std::wstring normalize_path(folder_path);
-    AddPathBackslash()(&normalize_path);
-    while ((index = normalize_path.find(L'\\', index)) != std::wstring::npos) {
-      index++;
-      std::wstring path = normalize_path.substr(0, index);
-      if (0 == CreateDirectory(path.c_str(), NULL)) {
-        if (GetLastError() == ERROR_ALREADY_EXISTS) {
-          ret = true;
-        } else {
-          ret = false;
-        }
-      } else {
-        ret = true;
+struct  GetUpperDirectory {
+  std::wstring operator()(const std::wstring& path) {
+    std::wstring tmp(path);
+    RemovePathBackslash()(&tmp);
+    int pos = tmp.rfind(L'\\');
+    if (pos == std::wstring::npos) {
+      return L"";
+    }
+    return tmp.substr(0, pos+1);
+  }
+};
+
+struct IsPathDirectory {
+  bool operator()(const std::wstring& path) {
+    DWORD attr = ::GetFileAttributes(path.c_str());
+    if (attr == INVALID_FILE_ATTRIBUTES) {
+      return false;
+    }
+    return (attr & FILE_ATTRIBUTE_DIRECTORY) != 0;
+  }
+};
+
+struct CreateDirectories {
+  bool operator()(const std::wstring path) {
+    if (path.empty()) {
+      return false;
+    }
+    if (IsPathDirectory()(path)) {
+      return true;
+    } else{
+      if (IsPathFileExist()(path)) {
+        return false;
       }
     }
-    return ret;
+    if (!operator()(GetUpperDirectory()(path))) {
+      return false;
+    }
+    return TRUE == ::CreateDirectory(path.c_str(), NULL);
   }
 };
 
@@ -202,18 +230,6 @@ struct GetFileSize {
     }
     return (static_cast<ULONGLONG>(fad.nFileSizeHigh)
         << (sizeof(fad.nFileSizeLow)*8)) + fad.nFileSizeLow;
-  }
-};
-
-struct  GetUpperDirectory {
-  std::wstring operator()(const std::wstring& path) {
-    std::wstring tmp(path);
-    RemovePathBackslash()(&tmp);
-    int pos = tmp.rfind(L'\\');
-    if (pos == std::wstring::npos) {
-      return L"";
-    }
-    return tmp.substr(0, pos+1);
   }
 };
 
@@ -286,22 +302,12 @@ inline std::wstring GetSystemDirectory(void) {
   return GetFolderPath(CSIDL_SYSTEM);
 }
 
-inline bool IsPathFileExist(const std::wstring& pathfile) {
-  if (-1 != _waccess(pathfile.c_str(), 0)) {
-    return true;
-  } else {
-    return false;
-  }
+inline bool IsPathFileExist(const std::wstring& path) {
+  return detail::IsPathFileExist()(path);
 }
 
 inline std::wstring GetUpperDirectory(const std::wstring& path) {
-  std::wstring tmp(path);
-  ult::RemovePathBackslash(&tmp);
-  size_t pos = tmp.rfind(L'\\');
-  if (pos == std::wstring::npos) {
-    return L"";
-  }
-  return std::wstring(tmp.c_str(), pos+1);
+  return detail::GetUpperDirectory()(path);
 }
 
 inline std::wstring GetRootDirectory(const std::wstring& path) {
@@ -324,8 +330,8 @@ inline std::wstring GetNamedModuleDirectory(const std::wstring& module_name) {
   return GetUpperDirectory(buf);
 }
 
-inline bool MakeSureFolderExist(const std::wstring& folder_path) {
-  return detail::MakeSureFolderExist()(folder_path);
+inline bool CreateDirectories(const std::wstring& path) {
+  return detail::CreateDirectories()(path);
 }
 
 inline bool DeleteFileAlways(const std::wstring& filename) {
@@ -337,13 +343,16 @@ inline bool DeleteFileAlways(const std::wstring& filename) {
 }
 
 inline bool SetFileAttributes(const std::wstring& filename, DWORD file_attributes) {
-  return (::SetFileAttributes(filename.c_str(), file_attributes) != 0);
+  return ::SetFileAttributes(filename.c_str(), file_attributes) != 0;
 }
 
 inline bool RecursiveRemoveDirectory(const std::wstring& directory) {
   return detail::RecursiveRemoveDirectory()(directory);
 }
 
+inline bool IsPathDirectory(const std::wstring& path) {
+  return detail::IsPathDirectory()(path);
+}
 } //namespace ult
 
 #endif // ULT_FILE_DIR_H_
