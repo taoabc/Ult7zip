@@ -105,9 +105,6 @@ STDMETHODIMP ExtractCallback::GetStream(UInt32 index, ISequentialOutStream **out
       }
       fullpath = prop.bstrVal;
     }
-    if (fullpath == L"launcher\\XAR\\MainResTM\\res\\default.zip\\bitmap\\webloading\\0.0010001.png") {
-      std::wstring a = fullpath;
-    }
     file_path_ = fullpath;
     if (!IsNull(callback_)) {
       RETURN_IF_FAILED(callback_->SetPath(fullpath.c_str()));
