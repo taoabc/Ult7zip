@@ -66,10 +66,8 @@ STDMETHODIMP Unzip::Init(LPCWSTR xapath) {
   if (IsNull(CreateObject)) {
     return E_FAIL;
   }
-
-  if (CreateObject(&CLSID_CFormat7z, &IID_IInArchive, (void**)&archive_) != S_OK) {
-    return E_FAIL;
-  }
+  HRESULT hr = CreateObject(&CLSID_CFormat7z, &IID_IInArchive, (void**)&archive_);
+  RETURN_IF_FAILED(hr);
   
   in_stream_spec_ = new InFileStream;
   open_callback_spec_ = new OpenCallback;
@@ -96,32 +94,22 @@ STDMETHODIMP Unzip::Open(LPCWSTR packpath) {
   if (!in_stream_spec_->Open(packpath)) {
     return E_FAIL;
   }
-  if (FAILED(archive_->Open(in_stream_, NULL, open_callback_))) {
-    return E_FAIL;
-  }
-  return S_OK;
+  return archive_->Open(in_stream_, NULL, open_callback_);
 }
 
 STDMETHODIMP Unzip::OpenMem(LPCVOID data, ULONGLONG datalen) {
   if (!in_stream_spec_->Open(data, datalen)) {
     return E_FAIL;
   }
-  if (FAILED(archive_->Open(in_stream_, NULL, open_callback_))) {
-    return E_FAIL;
-  }
-  return S_OK;
+  return archive_->Open(in_stream_, NULL, open_callback_);
 }
 
 STDMETHODIMP Unzip::OpenInsideFile( LPCWSTR file, ULONGLONG pack_pos, ULONGLONG pack_size ) {
   if (!in_stream_spec_->Open(file, pack_pos, pack_size)) {
     return E_FAIL;
   }
-  if (FAILED(archive_->Open(in_stream_, NULL, open_callback_))) {
-    return E_FAIL;
-  }
-  return S_OK;
+  return archive_->Open(in_stream_, NULL, open_callback_);
 }
-
 
 STDMETHODIMP Unzip::Extract(LPCWSTR targetpath, IU7zUnzipEvent* callback) {
   ComPtr<IU7zUnzipEvent> cb = callback;

@@ -9,7 +9,7 @@
 #endif
 
 template <typename T>
-inline bool IsNull(const T& p) {
+bool IsNull(const T& p) {
   return (p == NULL || p == nullptr);
 }
 
