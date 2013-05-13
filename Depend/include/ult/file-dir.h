@@ -31,7 +31,7 @@ struct ToPurenameAndExtension {
       const std::wstring& fullname,
       std::wstring* purename,
       std::wstring* extension) {
-    int pos = fullname.rfind(L".");
+    size_t pos = fullname.rfind(L".");
     if (pos == std::wstring::npos) {
       purename->assign(fullname);
       extension->clear();
@@ -48,8 +48,8 @@ struct ToUpperpathAndFilename {
     std::wstring* pathprefix,
     std::wstring* filename,
     const std::wstring& pathseparator) {
-      int separator_len = pathseparator.length();
-      int pos = fullpath.rfind(pathseparator);
+      size_t separator_len = pathseparator.length();
+      size_t pos = fullpath.rfind(pathseparator);
       if (pos == std::wstring::npos) {
         pathprefix->clear();
         filename->assign(fullpath);
@@ -106,7 +106,7 @@ struct GetDriveInType {
 
 struct GetRootDirectory {
   std::wstring operator()(const std::wstring& path) {
-    int pos = path.find(L'\\');
+    size_t pos = path.find(L'\\');
     if (pos == 0) {
       pos = path.find(L'\\', 2); 
     }
@@ -152,7 +152,7 @@ struct  GetUpperDirectory {
   std::wstring operator()(const std::wstring& path) {
     std::wstring tmp(path);
     RemovePathBackslash()(&tmp);
-    int pos = tmp.rfind(L'\\');
+    size_t pos = tmp.rfind(L'\\');
     if (pos == std::wstring::npos) {
       return L"";
     }

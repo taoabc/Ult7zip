@@ -143,7 +143,6 @@ public:
 
   bool Read(void* buffer, DWORD toread, DWORD* readed) {
     *readed = 0;
-    DWORD t = toread;
     unsigned long readed_once = 0;
     do {
       bool ret = ReadPart(buffer, toread, &readed_once);
